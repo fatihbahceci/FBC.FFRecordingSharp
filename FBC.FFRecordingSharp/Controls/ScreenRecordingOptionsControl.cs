@@ -19,6 +19,7 @@ namespace FFRecordingSharp.Controls
         public ScreenRecordingOptionsControl()
         {
             InitializeComponent();
+            _model.PropertyChanged += ModelPropertyChanged;
             bsData.DataSource = _model;
 
             // if not in designer
@@ -27,6 +28,8 @@ namespace FFRecordingSharp.Controls
                 initializeCombos();
             }
         }
+
+
 
         private void LinkFailed(bool isFailed)
         {
@@ -117,6 +120,23 @@ namespace FFRecordingSharp.Controls
         private void lReload_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             initializeCombos();
+        }
+
+        private void ModelPropertyChanged(object? sender, PropertyChangedEventArgs e)
+        {
+            switch (e.PropertyName)
+            {
+                case nameof(_model.Region):
+                    if (_model.Region != null)
+                    {
+                        rbRegion.Checked = true;
+                    }
+                    else
+                    {
+                        rbFullScreen.Checked = true;
+                    }
+                    break;
+            }
         }
 
         private void region_CheckedChanged(object sender, EventArgs e)

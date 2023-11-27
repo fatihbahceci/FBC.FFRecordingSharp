@@ -42,8 +42,8 @@
             tabPage2 = new TabPage();
             logger = new Controls.AsyncLogControl();
             tbAbout = new TabPage();
-            trayIcon = new NotifyIcon(components);
             creditsControl1 = new FBC.FFRecordingSharp.Controls.CreditsControl();
+            trayIcon = new NotifyIcon(components);
             panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -107,13 +107,15 @@
             // cbMinimizeToTrayOnRecording
             // 
             cbMinimizeToTrayOnRecording.AutoSize = true;
+            cbMinimizeToTrayOnRecording.Checked = true;
+            cbMinimizeToTrayOnRecording.CheckState = CheckState.Checked;
             cbMinimizeToTrayOnRecording.Dock = DockStyle.Left;
             cbMinimizeToTrayOnRecording.Location = new Point(180, 3);
             cbMinimizeToTrayOnRecording.Margin = new Padding(10, 3, 3, 3);
             cbMinimizeToTrayOnRecording.Name = "cbMinimizeToTrayOnRecording";
-            cbMinimizeToTrayOnRecording.Size = new Size(183, 44);
+            cbMinimizeToTrayOnRecording.Size = new Size(218, 44);
             cbMinimizeToTrayOnRecording.TabIndex = 2;
-            cbMinimizeToTrayOnRecording.Text = "Minimize to tray on recording";
+            cbMinimizeToTrayOnRecording.Text = "Minimize to the tray when recording";
             cbMinimizeToTrayOnRecording.UseVisualStyleBackColor = true;
             // 
             // cbOpenOutputOnFinished
@@ -122,7 +124,7 @@
             cbOpenOutputOnFinished.Checked = true;
             cbOpenOutputOnFinished.CheckState = CheckState.Checked;
             cbOpenOutputOnFinished.Dock = DockStyle.Left;
-            cbOpenOutputOnFinished.Location = new Point(376, 3);
+            cbOpenOutputOnFinished.Location = new Point(411, 3);
             cbOpenOutputOnFinished.Margin = new Padding(10, 3, 3, 3);
             cbOpenOutputOnFinished.Name = "cbOpenOutputOnFinished";
             cbOpenOutputOnFinished.Size = new Size(136, 44);
@@ -191,13 +193,6 @@
             tbAbout.Text = "About && Credits";
             tbAbout.UseVisualStyleBackColor = true;
             // 
-            // trayIcon
-            // 
-            trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
-            trayIcon.Text = "Click the icon to finish recording.";
-            trayIcon.Visible = true;
-            trayIcon.Click += trayIcon_Click;
-            // 
             // creditsControl1
             // 
             creditsControl1.Dock = DockStyle.Fill;
@@ -205,6 +200,13 @@
             creditsControl1.Name = "creditsControl1";
             creditsControl1.Size = new Size(575, 527);
             creditsControl1.TabIndex = 0;
+            // 
+            // trayIcon
+            // 
+            trayIcon.Icon = (Icon)resources.GetObject("trayIcon.Icon");
+            trayIcon.Text = "Click the icon to finish recording.";
+            trayIcon.Visible = true;
+            trayIcon.Click += trayIcon_Click;
             // 
             // MainForm
             // 

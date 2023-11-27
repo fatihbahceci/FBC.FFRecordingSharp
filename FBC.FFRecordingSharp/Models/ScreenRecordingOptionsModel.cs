@@ -389,6 +389,7 @@ namespace FFRecordingSharp.Models
             createOverlayForm();
             await FBCHelper.RunFFMpegCommandAsync(FFMpegPath, command, onLogAction, ct);
             destroyOverlayForm();
+            this.Region = null;
             adjustMarkForm();
 
         }
