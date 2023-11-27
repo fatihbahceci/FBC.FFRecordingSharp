@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWindowsForms>true</UseWindowsForms>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<ApplicationIcon>fbc-icon-1.ico</ApplicationIcon>
+		<Version>0.0.0.1</Version>
+		<AssemblyVersion>0.0.0.1</AssemblyVersion>
+		<OutputPath>..\Bin</OutputPath>
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Content Include="fbc-icon-1.ico" />
+	</ItemGroup>
+
+</Project>
+<!--
+Version History:
+date: DD.MM.YYYY | version: X.X.X.XXX | author: Author alias
+    [XX] - Description
+	[RN] - Release Note  
+	[BG] - Bug fix  
+	[IN] - Important Note   
+	[EN] - Enhancement:  
+	[RC] - Release Candidate/Release   
+	[OT] - Other commits 
+	
+	
+date: 27.11.2023 | version: 0.0.0.1 | author: FBC
+	[EN] - Initial commit
+
+-->
