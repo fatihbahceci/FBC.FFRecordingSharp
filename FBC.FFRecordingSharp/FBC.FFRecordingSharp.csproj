@@ -7,8 +7,8 @@
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<ApplicationIcon>fbc-icon-1.ico</ApplicationIcon>
-		<Version>0.0.0.3</Version>
-		<AssemblyVersion>0.0.0.3</AssemblyVersion>
+		<Version>0.0.0.4</Version>
+		<AssemblyVersion>0.0.0.4</AssemblyVersion>
 		<OutputPath>..\Bin</OutputPath>
 		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
 		<AppendRuntimeIdentifierToOutputPath>false</AppendRuntimeIdentifierToOutputPath>
@@ -38,6 +38,8 @@ date: DD.MM.YYYY | version: X.X.X.XXX | author: Author alias
 	[RC] - Release Candidate/Release   
 	[OT] - Other commits 
 	
+date: 29.11.2023 | version: 0.0.0.4 | author: FBC
+	[EN] - Force output extension to mp4.
 date: 28.11.2023 | version: 0.0.0.3 | author: FBC
 	[EN] - Make the interface more user friendly.
 	[EN] - Pop a message baloon when application is moved to tray.

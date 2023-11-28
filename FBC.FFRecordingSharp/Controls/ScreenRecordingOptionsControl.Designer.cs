@@ -34,6 +34,7 @@
             fFFMpegPath = new FileTextBoxControl();
             bsData = new BindingSource(components);
             gbRegion = new GroupBox();
+            btnEntireScreen = new Button();
             btnSelectRegion = new Button();
             label4 = new Label();
             lReload = new LinkLabel();
@@ -45,7 +46,6 @@
             checkBox1 = new CheckBox();
             cbVideoDevices = new ComboBox();
             label1 = new Label();
-            btnEntireScreen = new Button();
             tabControl1.SuspendLayout();
             pSource.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bsData).BeginInit();
@@ -90,6 +90,7 @@
             fFFMpegPath.FileDialogFilter = "FFmpeg Executable (ffmpeg.exe)|ffmpeg.exe";
             fFFMpegPath.FileDialogOverwritePrompt = true;
             fFFMpegPath.FileDialogTitle = "Select a file";
+            fFFMpegPath.ForceToExtension = null;
             fFFMpegPath.IsSaveFileDialog = false;
             fFFMpegPath.Location = new Point(18, 354);
             fFFMpegPath.Name = "fFFMpegPath";
@@ -114,6 +115,16 @@
             gbRegion.TabIndex = 8;
             gbRegion.TabStop = false;
             gbRegion.Text = "[ Region ]";
+            // 
+            // btnEntireScreen
+            // 
+            btnEntireScreen.Location = new Point(18, 18);
+            btnEntireScreen.Name = "btnEntireScreen";
+            btnEntireScreen.Size = new Size(113, 23);
+            btnEntireScreen.TabIndex = 3;
+            btnEntireScreen.Text = "Entire Screen";
+            btnEntireScreen.UseVisualStyleBackColor = true;
+            btnEntireScreen.Click += btnEntireScreen_Click;
             // 
             // btnSelectRegion
             // 
@@ -154,6 +165,7 @@
             fileTextBoxControl1.FileDialogFilter = "All files (*.*)|*.*";
             fileTextBoxControl1.FileDialogOverwritePrompt = true;
             fileTextBoxControl1.FileDialogTitle = "Select a file";
+            fileTextBoxControl1.ForceToExtension = ".mp4";
             fileTextBoxControl1.IsSaveFileDialog = true;
             fileTextBoxControl1.Location = new Point(18, 6);
             fileTextBoxControl1.Name = "fileTextBoxControl1";
@@ -239,16 +251,6 @@
             label1.Size = new Size(73, 15);
             label1.TabIndex = 0;
             label1.Text = "VideoSource";
-            // 
-            // btnEntireScreen
-            // 
-            btnEntireScreen.Location = new Point(18, 18);
-            btnEntireScreen.Name = "btnEntireScreen";
-            btnEntireScreen.Size = new Size(113, 23);
-            btnEntireScreen.TabIndex = 3;
-            btnEntireScreen.Text = "Entire Screen";
-            btnEntireScreen.UseVisualStyleBackColor = true;
-            btnEntireScreen.Click += btnEntireScreen_Click;
             // 
             // ScreenRecordingOptionsControl
             // 

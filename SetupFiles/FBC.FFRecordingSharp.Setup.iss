@@ -29,7 +29,7 @@ VersionInfoVersion={#MyAppVersion}
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
+Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
 
 [Files]
 Source: "..\Bin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
@@ -48,6 +48,7 @@ Source: "..\Bin\ffplay\postproc-57.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\ffplay\swresample-4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\ffplay\swscale-7.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\third\Setup.Screen.Capturer.Recorder.v0.13.3.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\Bin\third\windowsdesktop-runtime-8.0.0-win-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
@@ -62,6 +63,24 @@ Filename: "{app}\{#MyAppExeName}"; Flags: nowait postinstall skipifsilent; Descr
 ;Type: files; Name: "{app}\Setup.Screen.Capturer.Recorder.v0.13.3.exe"
 
 [Code]
+
+function NeedsDotNet8: Boolean;
+var
+  sabri: String;
+begin
+  // Check if .NET 8 is installed
+  if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\Microsoft\NET Framework Setup\NDP\v8\Full', 'Install', sabri) then
+  begin
+    // .NET 8 is already installed
+    Result := False;
+  end
+  else
+  begin
+    // .NET 8 is not installed
+    Result := True;
+  end;
+end;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
     ErrorCode : Integer;
@@ -71,6 +90,12 @@ begin
   begin
     //ShellExec('', ExpandConstant('{tmp}\Microsoft CCR and DSS Runtime 2008 R3 Redistributable.exe'), ExpandConstant('/S /v/qn'), '', SW_HIDE, ewWaitUntilTerminated, ErrorCode)
     ShellExec('', ExpandConstant('{app}\Setup.Screen.Capturer.Recorder.v0.13.3.exe'), '/VERYSILENT /NOICONS', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
+    if NeedsDotNet8 then
+    Begin
+      ShellExec('', ExpandConstant('{app}\windowsdesktop-runtime-8.0.0-win-x64.exe'), '/SILENT', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);    
+    End;
     //ShellExec('', ExpandConstant('{app}\{#MyAppExeName}'), '', '', SW_SHOW, ewNoWait, ErrorCode);
   end;
 end;
+
+

@@ -85,8 +85,12 @@ namespace FFRecordingSharp.Controls
             set
             {
                 tbPath.Text = value;
+                if (!string.IsNullOrEmpty(ForceToExtension))
+                    tbPath.Text = System.IO.Path.ChangeExtension(tbPath.Text, ForceToExtension);
             }
         }
+
+        public string ForceToExtension { get; set; }
 
         public bool IsSaveFileDialog
         {
