@@ -13,6 +13,9 @@ AppId={{D2FFB34F-56B8-475F-87BE-EAF872200079}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
+ArchitecturesAllowed=x86 x64 arm64 ia64
+ArchitecturesInstallIn64BitMode=x64 ia64
+
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 AllowNoIcons=yes
@@ -47,8 +50,15 @@ Source: "..\Bin\ffplay\avutil-58.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\ffplay\postproc-57.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\ffplay\swresample-4.dll"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\ffplay\swscale-7.dll"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\Bin\third\Setup.Screen.Capturer.Recorder.v0.13.3.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "..\Bin\third\windowsdesktop-runtime-8.0.0-win-x64.exe"; DestDir: "{app}"; Flags: ignoreversion
+
+Source: "..\Bin\third\vcredist_2010_x64.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: IsWin64; AfterInstall: InstallVCRedist
+Source: "..\Bin\third\vcredist_2010_x86.exe"; DestDir: "{app}"; Flags: ignoreversion; Check: not IsWin64; AfterInstall: InstallVCRedist
+
+Source: "..\Bin\third\screen-capture-recorder.dll"; DestDir: "{app}"; Flags: regserver 32bit; Check: not IsWin64
+Source: "..\Bin\third\screen-capture-recorder-x64.dll"; DestDir: "{app}"; Flags: regserver 64bit; Check: IsWin64
+Source: "..\Bin\third\virtual-audio-capturer.dll"; DestDir: "{app}"; Flags: regserver 32bit; Check: not IsWin64
+Source: "..\Bin\third\virtual-audio-capturer-x64.dll"; DestDir: "{app}"; Flags: regserver 64bit; Check: IsWin64
 
 [Icons]
 Name: "{group}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
@@ -81,17 +91,33 @@ begin
   end;
 end;
 
+procedure InstallVCRedist();
+var
+    ErrorCode : Integer;
+Begin
+ if (IsWin64) then
+    Begin
+      Log('Installing vcredist_2010_x64...');
+      ShellExec('', ExpandConstant('{app}\vcredist_2010_x64.exe'), '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);    
+    End
+    else
+    Begin
+      Log('Installing vcredist_2010_x86...');
+      ShellExec('', ExpandConstant('{app}\Vvcredist_2010_x86.exe'), '/passive /norestart', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);    
+    End;
+End;
+
 procedure CurStepChanged(CurStep: TSetupStep);
 var
     ErrorCode : Integer;
 begin
-  // Kurulum işlemi bitiş adımına geldiğinde çalışacak
   if CurStep = ssPostInstall then //ssDone
   begin
     //ShellExec('', ExpandConstant('{tmp}\Microsoft CCR and DSS Runtime 2008 R3 Redistributable.exe'), ExpandConstant('/S /v/qn'), '', SW_HIDE, ewWaitUntilTerminated, ErrorCode)
-    ShellExec('', ExpandConstant('{app}\Setup.Screen.Capturer.Recorder.v0.13.3.exe'), '/VERYSILENT /NOICONS', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
+    //ShellExec('', ExpandConstant('{app}\Setup.Screen.Capturer.Recorder.v0.13.3.exe'), '/VERYSILENT /NOICONS', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);
     if NeedsDotNet8 then
     Begin
+      Log('Installing .net 8.0 Runtime...');
       ShellExec('', ExpandConstant('{app}\windowsdesktop-runtime-8.0.0-win-x64.exe'), '/SILENT', '', SW_SHOW, ewWaitUntilTerminated, ErrorCode);    
     End;
     //ShellExec('', ExpandConstant('{app}\{#MyAppExeName}'), '', '', SW_SHOW, ewNoWait, ErrorCode);
