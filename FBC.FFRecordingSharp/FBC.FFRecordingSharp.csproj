@@ -20,6 +20,14 @@
 
 </Project>
 <!--
+TODOs:
+ [X] - Make the interface more user friendly.
+ [X] - Pop a message baloon when application is moved to tray.
+ [X] - Do not allow to start recording if output is not selected or it is relates to the app's folder.
+ [X] - Try to handle permission issues when executing the recorder.
+ [ ] - Add multi screen support.  
+ 
+ 
 Version History:
 date: DD.MM.YYYY | version: X.X.X.XXX | author: Author alias
     [XX] - Description
@@ -30,6 +38,11 @@ date: DD.MM.YYYY | version: X.X.X.XXX | author: Author alias
 	[RC] - Release Candidate/Release   
 	[OT] - Other commits 
 	
+date: 28.11.2023 | version: 0.0.0.3 | author: FBC
+	[EN] - Make the interface more user friendly.
+	[EN] - Pop a message baloon when application is moved to tray.
+	[EN] - Warn user if output is not selected or it is relates to the app's folder/User does not have permission to write.
+	[EN] - Warn use if output file already exists.
 date: 28.11.2023 | version: 0.0.0.2 | author: FBC
 	[EN] - Dismiss 	Region form when recording is ended.
 date: 27.11.2023 | version: 0.0.0.1 | author: FBC

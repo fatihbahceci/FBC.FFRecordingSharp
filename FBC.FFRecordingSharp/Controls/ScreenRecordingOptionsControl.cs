@@ -26,6 +26,7 @@ namespace FFRecordingSharp.Controls
             if (!DesignMode)
             {
                 initializeCombos();
+                adjustControls();
             }
         }
 
@@ -127,39 +128,40 @@ namespace FFRecordingSharp.Controls
             switch (e.PropertyName)
             {
                 case nameof(_model.Region):
-                    if (_model.Region != null)
-                    {
-                        rbRegion.Checked = true;
-                    }
-                    else
-                    {
-                        rbFullScreen.Checked = true;
-                    }
+                    adjustControls();
                     break;
+
             }
         }
 
-        private void region_CheckedChanged(object sender, EventArgs e)
+        private void adjustControls()
         {
-            if ((sender is RadioButton rb && rb.Checked))
+            if (_model.Region != null)
             {
-                switch (rb.Name)
+                btnEntireScreen.BackColor = SystemColors.Control;
+                btnSelectRegion.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                btnSelectRegion.BackColor = SystemColors.Control;
+                btnEntireScreen.BackColor = Color.LightGreen;
+            }
+        }
+
+        private void btnSelectRegion_Click(object sender, EventArgs e)
+        {
+            using (var form = new RegionSelectForm())
+            {
+                if (form.ShowDialog() == DialogResult.OK)
                 {
-                    case nameof(rbRegion):
-                        using (var form = new RegionSelectForm())
-                        {
-                            if (form.ShowDialog() == DialogResult.OK)
-                            {
-                                _model.Region = form.SelectedRegion;
-                            }
-                        }
-                        break;
-                    case nameof(rbFullScreen):
-                        _model.Region = null;
-                        break;
+                    _model.Region = form.SelectedRegion;
                 }
             }
+        }
 
+        private void btnEntireScreen_Click(object sender, EventArgs e)
+        {
+            _model.Region = null;
         }
     }
 }

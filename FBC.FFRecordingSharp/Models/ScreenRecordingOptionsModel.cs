@@ -49,7 +49,15 @@ namespace FFRecordingSharp.Models
             }
         }
 
-        public string RegionAsString { get { return _region.HasValue ? _region!.Value.ToString() : "Entire Screen"; } }
+        public string RegionAsString
+        {
+            get
+            {
+                return _region.HasValue
+                    ? $"x: {_region.Value.X} y: {_region!.Value.Y} w: {_region!.Value.Width} h: {_region!.Value.Height}"
+                    : "Entire Screen";
+            }
+        }
 
         public string FFMpegPath
         {
@@ -332,21 +340,11 @@ namespace FFRecordingSharp.Models
 
         private void adjustMarkForm()
         {
+            destroyMarkForm();
             if (Region.HasValue)
             {
-                if (markForm == null)
-                {
-                    markForm = new OverlayForm(Region.Value, Color.DarkBlue);
-                    markForm.Show();
-                }
-                else
-                {
-                    markForm.Bounds = Region.Value;
-                }
-            }
-            else
-            {
-                destroyMarkForm();
+                markForm = new OverlayForm(Region.Value, Color.DarkBlue);
+                markForm.Show();
             }
         }
         private void destroyMarkForm()

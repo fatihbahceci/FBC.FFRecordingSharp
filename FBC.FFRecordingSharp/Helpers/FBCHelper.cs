@@ -13,7 +13,7 @@ namespace FBC.FFRecordingSharp.Helpers
     internal static class FBCHelper
     {
         public const string FFMPEG_NOT_FOUND = "FFmpeg not found. Please add the path to ffmpeg.exe in your system environment's PATH variable and set the ffmpeg path as 'ffmpeg.exe', or specify the full path to ffmpeg.exe directly in the ffmpeg path setting.";
-        public const string FFMPEG_NOT_FOUND_LINKED_LABEL = "FFmpeg not found. Please add the path to ffmpeg.exe in your system environment's PATH variable and set the ffmpeg path as 'ffmpeg.exe', or specify the full path to ffmpeg.exe directly in the ffmpeg path setting. Then click on this message to try again.";
+        public const string FFMPEG_NOT_FOUND_LINKED_LABEL = FFMPEG_NOT_FOUND + " Then click on this message to try again.";
         public const string DEFAULT_LINKED_LABEL = "Click here to reload devices.";
 
         public const string SCREEN_CAPTURE_RECORDER = "screen-capture-recorder";
@@ -266,6 +266,29 @@ namespace FBC.FFRecordingSharp.Helpers
                 {
                     throw;
                 }
+            }
+        }
+
+        public static bool CanWriteToDirectory(string path)
+        {
+            if (string.IsNullOrEmpty(path))
+            {
+                return false;
+            }
+            try
+            {
+                if (Directory.Exists(path))
+                {
+                    string tempPath = Path.Combine(path, Guid.NewGuid().ToString() + ".test");
+                    File.WriteAllText(tempPath, "Test Write");
+                    File.Delete(tempPath);
+                    return true;
+                }
+                return false;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                return false;
             }
         }
     }
